@@ -45,9 +45,13 @@ const config: Config = {
         // Accent peach for "problem" highlight text
         'peach-accent': '#d96a3a',
       },
+      // Plus Jakarta Sans is this site's body face throughout - the marketing site is the one
+      // deliberate exception to "Jakarta is for the Minty name only" (decision 2026-10-12), since
+      // the brand mark here is an image and the whole page is brand surface. `mono` is left unset:
+      // JetBrains Mono was loaded and applied by nothing, so Tailwind's own mono stack (which is
+      // what every page already rendered) now stands.
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
       },
       boxShadow: {
         'minty-sm': '0 1px 2px rgba(15,45,58,.04), 0 2px 8px rgba(15,45,58,.04)',
