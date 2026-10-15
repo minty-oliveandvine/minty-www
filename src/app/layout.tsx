@@ -1,6 +1,24 @@
 import type { Metadata, Viewport } from 'next';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import { siteConfig } from '@/config/site';
 import './globals.css';
+
+// Plus Jakarta Sans, self-hosted through next/font as the three app frontends host Inter
+// (2026-10-12). This replaced a Google Fonts <link>: next/font also generates a metric-matched
+// fallback @font-face (src: local(Arial) with size-adjust / ascent-override), so the site no
+// longer reflows when the webfont lands.
+//
+// The FACE is this site's documented exception to "Jakarta is for the Minty name only": the mark
+// here is an image (layout/Navbar.tsx, layout/Footer.tsx, get-started/Hero-Section.tsx) and the
+// whole page is brand surface, so Jakarta is the body face throughout. Only the MECHANISM is
+// unified. No `weight` array, so this is the variable font - the site genuinely uses
+// 400/500/600/700/800, and one variable file beats five static ones.
+// The stacks that consume --font-jakarta live in tailwind.config.ts; change the two together.
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jakarta',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -63,18 +81,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`${jakarta.variable} scroll-smooth`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}

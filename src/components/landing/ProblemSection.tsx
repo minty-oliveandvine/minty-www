@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { X } from 'lucide-react';
 import Container from '@/components/ui/Container';
 import { landingContent } from '@/config/landing';
 import FadeContent from '@/animations/landing/fadeanim';
@@ -44,9 +45,12 @@ export default function ProblemSection() {
             <ul className="list-none p-0 m-0 flex flex-col gap-4">
               {problem.items.map((item) => (
                 <li key={item} className="flex items-center gap-3">
-                  <span aria-hidden="true" className="material-symbols-outlined flex-none text-2xl text-peach-accent">
-                    close
-                  </span>
+                  {/* lucide, not Material Symbols: this was the only icon-font glyph on the whole
+                      site, and the self-hosted package is a 3.96 MB file with font-display: block,
+                      so the glyph would have been invisible until it arrived. lucide is already a
+                      dependency here (layout/Navbar.tsx, ui/VideoModal.tsx). h-6 w-6 is 24px, the
+                      size the icon class forced anyway. */}
+                  <X aria-hidden="true" className="h-6 w-6 flex-none text-peach-accent" />
                   <span className="text-base text-ink">{item}</span>
                 </li>
               ))}

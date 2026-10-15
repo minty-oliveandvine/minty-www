@@ -45,9 +45,25 @@ const config: Config = {
         // Accent peach for "problem" highlight text
         'peach-accent': '#d96a3a',
       },
+      // Plus Jakarta Sans is this site's body face throughout - the marketing site is the one
+      // deliberate exception to "Jakarta is for the Minty name only" (decision 2026-10-12), since
+      // the brand mark here is an image and the whole page is brand surface. Only the MECHANISM is
+      // unified with the three app frontends: the face now arrives through next/font
+      // (src/app/layout.tsx sets --font-jakarta on <html>), self-hosted and with a metric-matched
+      // fallback, instead of a Google Fonts <link>. Change the two together.
+      //
+      // These are minty-web's @theme stacks with Jakarta in Inter's place. Tailwind v3 has no
+      // @theme, so the config IS the token layer here - there is no second copy in globals.css,
+      // whose CSS has no font-family rule at all. The array form matters: a bare string would
+      // leave the sibling keys at Tailwind's defaults, and v3 joins with ', ' without escaping,
+      // so a multi-word family would need its own literal CSS quotes.
+      // `mono` is left unset, as in the v4 apps: nothing uses font-mono, and Tailwind's own
+      // default keeps it genuinely monospace (so a future <pre> is right). `brand` is identical to
+      // `sans` here because Jakarta IS the body face; it exists so a lockup written on this site
+      // names the same token as the other apps.
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        sans: ['var(--font-jakarta)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        brand: ['var(--font-jakarta)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'minty-sm': '0 1px 2px rgba(15,45,58,.04), 0 2px 8px rgba(15,45,58,.04)',
